@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import MoviesPage from './MoviesPage';
+import Login from '../components/Login'
 
 class App extends Component {
 
@@ -13,7 +14,16 @@ class App extends Component {
       1: { id: 1, title: 'A River Runs Through It' },
       2: { id: 2, title: 'Se7en' },
       3: { id: 3, title: 'Inception' }
-    }
+    },
+    username: "",
+    password: ""
+  }
+
+  changeUsernameOrPassword = (event) => {
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: event.target.value
+    })
   }
 
   render() {
@@ -22,6 +32,7 @@ class App extends Component {
         <div>
           <NavBar />
           <Route exact path="/" render={() => <div>Home</div>} />
+          <Route path="/login" render={() => <Login changeUsernameOrPassword={this.changeUsernameOrPassword}  username={this.state.username}  password={this.state.password}/>} />
           <Route path='/movies' render={routerProps => <MoviesPage {...routerProps} movies={this.state.movies}/>} />
         </div>
       </Router>
